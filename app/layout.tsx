@@ -27,7 +27,7 @@ html {
 }
         `}</style>
       </head>
-      <body>
+      <body className="bg-[#f5f7fa]">
         <LayoutWrapper>{children}</LayoutWrapper>
       </body>
     </html>

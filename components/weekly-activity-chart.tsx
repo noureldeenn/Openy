@@ -1,49 +1,81 @@
-"use client"
+"use client";
 
-import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis, Legend } from "recharts"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import {
+  Bar,
+  BarChart,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+  Legend,
+  Tooltip,
+  CartesianGrid,
+} from "recharts";
 
 const data = [
-  { day: "Sat", deposit: 200, withdraw: 100 },
-  { day: "Sun", deposit: 300, withdraw: 150 },
-  { day: "Mon", deposit: 400, withdraw: 200 },
-  { day: "Tue", deposit: 350, withdraw: 180 },
-  { day: "Wed", deposit: 250, withdraw: 120 },
-  { day: "Thu", deposit: 300, withdraw: 160 },
-  { day: "Fri", deposit: 450, withdraw: 220 },
-]
-
-const chartConfig = {
-  deposit: {
-    label: "Deposit",
-    color: "hsl(var(--chart-1))",
-  },
-  withdraw: {
-    label: "Withdraw",
-    color: "hsl(var(--chart-2))",
-  },
-}
+  { day: "Sat", deposit: 250, withdraw: 480 },
+  { day: "Sun", deposit: 120, withdraw: 340 },
+  { day: "Mon", deposit: 260, withdraw: 320 },
+  { day: "Tue", deposit: 360, withdraw: 480 },
+  { day: "Wed", deposit: 240, withdraw: 150 },
+  { day: "Thu", deposit: 230, withdraw: 380 },
+  { day: "Fri", deposit: 330, withdraw: 400 },
+];
 
 export function WeeklyActivityChart() {
   return (
-    <div className="h-80">
-      <ChartContainer config={chartConfig}>
+    <div className="bg-white h-full rounded-2xl w-full p-4 shadow-sm">
+      <div className="flex justify-end mb-2 text-sm">
+        <div className="flex items-center gap-2 mr-4">
+          <span className="w-3 h-3 rounded-full bg-[#16DBCC]"></span>
+          <span className="text-[#718EBF]">Deposit</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="w-3 h-3 rounded-full bg-[#FF82AC]"></span>
+          <span className="text-[#718EBF]">Withdraw</span>
+        </div>
+      </div>
+      <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+          <BarChart
+            data={data}
+            margin={{ top: 10, right: 10, left: 10, bottom: 5 }}
+          >
+            {/* Horizontal grid lines */}
+            <CartesianGrid
+              strokeDasharray="0"
+              vertical={false}
+              stroke="#E5E7EB" // Tailwind gray-200
+            />
             <XAxis
               dataKey="day"
               axisLine={false}
               tickLine={false}
-              tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 12, fill: "#718EBF" }}
             />
-            <YAxis axisLine={false} tickLine={false} tick={{ fontSize: 12, fill: "hsl(var(--muted-foreground))" }} />
-            <ChartTooltip content={<ChartTooltipContent />} />
-            <Legend />
-            <Bar dataKey="deposit" fill="var(--color-chart-1)" radius={[4, 4, 0, 0]} name="Deposit" />
-            <Bar dataKey="withdraw" fill="var(--color-chart-2)" radius={[4, 4, 0, 0]} name="Withdraw" />
+            <YAxis
+              axisLine={false}
+              tickLine={false}
+              tick={{ fontSize: 12, fill: "#718EBF" }}
+            />
+            <Tooltip
+              cursor={{ fill: "rgba(0,0,0,0.05)" }}
+              contentStyle={{ borderRadius: "8px", border: "none" }}
+            />
+            <Bar
+              dataKey="deposit"
+              fill="#1814F3"
+              radius={[30, 30, 30, 30]}
+              barSize={15}
+            />
+            <Bar
+              dataKey="withdraw"
+              fill="#16DBCC"
+              radius={[30, 30, 30, 30]}
+              barSize={15}
+            />
           </BarChart>
         </ResponsiveContainer>
-      </ChartContainer>
+      </div>
     </div>
-  )
+  );
 }
